@@ -15,7 +15,7 @@ public class FragmentGraphGenerator<V,E> implements GraphGenerator<V, E, V> {
 	 * (non-Javadoc)
 	 * @see org.jgrapht.generate.GraphGenerator#generateGraph(org.jgrapht.Graph, org.jgrapht.VertexFactory, java.util.Map)
 	 * 
-	 * we could generate a FragmentGraph with FragmentGraphNode and FragmentGraphEdge, and FragmentGraphEdgeFactory,
+	 * we could generate a FragmentGraph with EntailmentUnitMention and FragmentGraphEdge, and FragmentGraphEdgeFactory,
 	 * we can use the map to give specific roles to the nodes (e.g. -- base statements, and whatnot)
 	 */
 	public void generateGraph(Graph<V, E> arg0, VertexFactory<V> arg1,

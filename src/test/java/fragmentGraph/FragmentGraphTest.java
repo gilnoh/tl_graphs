@@ -6,13 +6,13 @@ public class FragmentGraphTest {
 
 	@Test
 	public void test() {
-		FragmentGraph<FragmentGraphNode,FragmentGraphEdge<FragmentGraphNode>> g = new FragmentGraph(FragmentGraphEdge.class);
+		FragmentGraph<EntailmentUnitMention,FragmentGraphEdge<EntailmentUnitMention>> g = new FragmentGraph(FragmentGraphEdge.class);
 		
 		// make nodes
-		FragmentGraphNode v1 = new FragmentGraphNode("base statement");
-		FragmentGraphNode v2 = new FragmentGraphNode("base statement + M1",1);
-		FragmentGraphNode v3 = new FragmentGraphNode("base statement + M2",1);
-		FragmentGraphNode v4 = new FragmentGraphNode("base statement + M1 + M2",2);
+		EntailmentUnitMention v1 = new EntailmentUnitMention("base statement");
+		EntailmentUnitMention v2 = new EntailmentUnitMention("base statement + M1",1);
+		EntailmentUnitMention v3 = new EntailmentUnitMention("base statement + M2",1);
+		EntailmentUnitMention v4 = new EntailmentUnitMention("base statement + M1 + M2",2);
 		
 		// add nodes to graph
 		g.addVertex(v1);
@@ -21,7 +21,7 @@ public class FragmentGraphTest {
 		g.addVertex(v4);
 		
 		// add an edge with explicit edge object
-		g.addEdge(v1, v2, new FragmentGraphEdge<FragmentGraphNode>(v1, v2, 3.0));
+		g.addEdge(v1, v2, new FragmentGraphEdge<EntailmentUnitMention>(v1, v2, 3.0));
 		
 		// add an edge using the default method
 		g.addEdge(v1, v3);

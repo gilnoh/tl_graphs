@@ -40,8 +40,8 @@ public class FragmentGraph<V,E> extends DefaultDirectedWeightedGraph<V,E> {
 	 * 
 	 * @return the base statements of the fragment graph (useful for merging methods) -- for compatibility upwards (with WorkGraph)
 	 */
-	public Set<V> getBaseStatements(){
-		return getNodes(0);
+	public V getBaseStatement(){
+		return baseStatement;
 	}
 
 	/**
@@ -75,7 +75,7 @@ public class FragmentGraph<V,E> extends DefaultDirectedWeightedGraph<V,E> {
 		Set<V> nodes = new HashSet<V>();
 		
 		for(V v: this.vertexSet()) {
-			if (((FragmentGraphNode) v).getLevel() == level) {
+			if (((EntailmentUnitMention) v).getLevel() == level) {
 				nodes.add(v);
 			}
 		}
