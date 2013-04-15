@@ -38,7 +38,7 @@ public final class CASUtils {
 	 */
 	static public void dumpCAS(JCas aJCas)
 	{
-		PlatformCASProber.printAnnotations(aJCas.getCas(), System.err); 
+		PlatformCASProber.printAnnotations(aJCas.getCas(), System.out); 
 		// TODO, dump to log, instead of console. 
 	}
 	

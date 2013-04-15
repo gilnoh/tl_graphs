@@ -13,7 +13,7 @@ target/
 
 bin/*
 
-common/bin/
-lap/bin/
+#common/bin/
+#lap/bin/
 uima.log
 
