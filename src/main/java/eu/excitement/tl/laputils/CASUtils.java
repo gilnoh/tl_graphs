@@ -1,7 +1,7 @@
 package eu.excitement.tl.laputils;
 
 import eu.excitementproject.eop.lap.PlatformCASProber;
-//import java.io.File;
+import java.io.File;
 //import java.io.FileNotFoundException;
 //import java.io.FileOutputStream;
 //import java.io.IOException;
@@ -91,15 +91,29 @@ public final class CASUtils {
 		PlatformCASProber.printAnnotations(aJCas.getCas(), System.out); 
 		// TODO, dump to log, instead of console. 
 	}
-	
+
 	/**
+	 * This static method serializes the given JCAS into an XMI file . 
 	 * 
+	 * @param JCas aJCas: the JCas to be serialized 
+	 * @param File f: file path, where XMI file will be written 
 	 */
-	static public void dumpCAS2TextFile() 
+	static public void serializeCAS(JCas aJCas, File f)
 	{
-		// TODO, use one of DKPro dumper 
+		// TODO write body
 	}
 	
-
+	/**
+	 * This static method loads a serialized XMI file and fill up the JCAS. 
+	 * Note that this method will first clear (by calling .reset()) the given CAS, and will fill it with given File, assuming the File is an XMI-zed CAS. If not, it will raise an exception. 
+	 * 
+	 * @param aJCas
+	 * @param f
+	 */
+	static public void loadXmi(JCas aJCas, File f)
+	{
+		// TODO write body 
+		
+	}
 	
 }
