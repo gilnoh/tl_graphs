@@ -1,8 +1,34 @@
 package eu.excitement.tl.laputils;
 
-import org.apache.uima.jcas.JCas;
-
 import eu.excitementproject.eop.lap.PlatformCASProber;
+//import java.io.File;
+//import java.io.FileNotFoundException;
+//import java.io.FileOutputStream;
+//import java.io.IOException;
+import java.io.InputStream;
+
+import org.apache.uima.UIMAFramework;
+import org.apache.uima.analysis_engine.AnalysisEngine;
+//import org.apache.uima.cas.CASException;
+//import org.apache.uima.cas.CASRuntimeException;
+//import org.apache.uima.cas.impl.XmiCasSerializer;
+import org.apache.uima.jcas.JCas;
+import org.apache.uima.resource.ResourceInitializationException;
+import org.apache.uima.resource.ResourceSpecifier;
+import org.apache.uima.util.InvalidXMLException;
+import org.apache.uima.util.XMLInputSource;
+//import org.apache.uima.util.XMLSerializer;
+//import org.xml.sax.SAXException;
+//
+//import eu.excitement.type.entailment.EntailmentMetadata;
+//import eu.excitement.type.entailment.Hypothesis;
+//import eu.excitement.type.entailment.Pair;
+//import eu.excitement.type.entailment.Text;
+//import eu.excitementproject.eop.common.configuration.CommonConfig;
+//import eu.excitementproject.eop.common.exception.ComponentException;
+//import eu.excitementproject.eop.common.exception.ConfigurationException;
+//import eu.excitementproject.eop.lap.LAPAccess;
+import eu.excitementproject.eop.lap.LAPException;
 
 /**
  * The class holds various small utility static methods that might be 
@@ -12,7 +38,6 @@ import eu.excitementproject.eop.lap.PlatformCASProber;
  * @author Gil 
  */
 
-// TODO: set dummy AE for CAS 
 // TODO: set typepath convention for UIMAFit based CAS generation. 
 // TODO: Check UIMAFit CASUtil, and wrap some needed things.  
 
@@ -22,13 +47,38 @@ public final class CASUtils {
 	 * This method generates a new JCas and returns it. 
 	 * The resulting CAS is empty, and holds nothing. No text, no language id, etc. The caller has to set them up. 
 	 * <P>
-	 * Note: Generally, making a new CAS is not really a good thing to do. It is a heavy and big object. If you can work on CAS sequentially, you should do that. This means that, using one CAS, if the work is done, reset the CAS (calling .reset()), and set a new document on the CAS, etc. (  
+	 * Note: Generally, making a new CAS is not really a good thing to do. It is a heavy and big object. If you can work on CAS sequentially, you should do that. This means that, using one CAS, if the work is done, reset the CAS (calling .reset()), and set a new document on the CAS, etc. The following is from UIMA JavaDoc.
+	 * <P><I>
+	 * Important: CAS creation is expensive, so if at all possible an application should reuse CASes. When a JCas instance is no longer being used, call its JCas.reset() method, which will remove all prior analysis information, and then reuse that same JCas instance for another call to process(JCas). </I>
 	 * @return JCas that can express/hold all CAS types that is known to EOP & TL Layer 
 	 */
-	static public JCas createNewInputCas()
+	static public JCas createNewInputCas() throws LAPException
 	{
 		JCas a = null; 
-		// TODO: fill in actual code 
+		AnalysisEngine typeAE = null; 
+		try {
+			InputStream s = CASUtils.class.getResourceAsStream("/desc/TLDummyAE.xml"); // This AE does nothing, but holding all types.
+			XMLInputSource in = new XMLInputSource(s, null); 
+			ResourceSpecifier specifier = UIMAFramework.getXMLParser().parseResourceSpecifier(in);		
+			typeAE = UIMAFramework.produceAnalysisEngine(specifier); 
+		} 
+		catch (InvalidXMLException e)
+		{
+			throw new LAPException("AE descriptor is not a valid XML", e);			
+		}
+		catch (ResourceInitializationException e)
+		{
+			throw new LAPException("Unable to initialize the AE", e); 
+		}		
+
+		try {
+			a = typeAE.newJCas(); 
+		}
+		catch (ResourceInitializationException e)
+		{
+			throw new LAPException("Unable to create new JCas", e); 
+		}
+		
 		return a; 
 	}
 	
@@ -47,8 +97,9 @@ public final class CASUtils {
 	 */
 	static public void dumpCAS2TextFile() 
 	{
-		
+		// TODO, use one of DKPro dumper 
 	}
 	
+
 	
 }

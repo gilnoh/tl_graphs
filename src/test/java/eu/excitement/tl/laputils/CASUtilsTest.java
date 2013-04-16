@@ -14,18 +14,25 @@ public class CASUtilsTest {
 	public void test() {
 
 		try {
-		// TODO generate CAS from CASutils 
+		// generate CAS from CASutils 
+		// (testing createNewInputCas()) 
+		JCas aJCas = CASUtils.createNewInputCas(); 
+		assertNotNull(aJCas); 
+
+		// set some text 
+		aJCas.setDocumentLanguage("EN");
+		aJCas.setDocumentText("This is a text sentence."); 
 		
-		// TODO run TreeTagger.addAnnotationON() to test annotate 
+		// make sure we can use any LAP, like TreeTaggerEN 
+		// (checking that the CAS can hold/access generic LAP annotation types) 
 		LAPAccess l = null; 
 		l = new TreeTaggerEN(); 
-		JCas a = l.generateSingleTHPairCAS("hello world", "goodbye world"); 
-		assertNotNull(a); 
+		l.addAnnotationOn(aJCas); 				
+		//  Dump the result... (if you want)  
+		CASUtils.dumpCAS(aJCas);  
 		
-		// TODO Dump the result... 
-		CASUtils.dumpCAS(a);  
+		// check that we can add TL types, too... 
 		
-		// TODO generate CAS by UIMAFit util. 
 		}
 		catch (Exception e)
 		{
